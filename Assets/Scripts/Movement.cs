@@ -7,8 +7,11 @@ Basic WASD absolute/static movement.
 */
 
 public class Movement : MonoBehaviour {
+    public Rigidbody2D rocket;
+    public float rspeed = 100f;
+
     //Speed to move at
-    public float Speed = 0;
+    public float Speed = 10;
 
     //Horizontal movement. 1 is right, -1 is left, 0 is no movement.
     private float movex;
@@ -29,6 +32,11 @@ public class Movement : MonoBehaviour {
         movey = Input.GetAxis("Vertical");
         //Add velocity to the object based on this velocity.
         GetComponent<Rigidbody2D>().velocity = new Vector2(movex * Speed, movey * Speed);
+
+        if (Input.GetKey(KeyCode.Mouse0)) {
+            Rigidbody2D rocketClone = (Rigidbody2D) Instantiate(rocket, transform.position, transform.rotation);
+            rocketClone.velocity = new Vector2(rspeed, rspeed);
+        }
     }
 
     /*##Exact Movement##, left/right/up/down, no diagnol
