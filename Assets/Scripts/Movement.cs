@@ -8,7 +8,7 @@ Basic WASD absolute/static movement.
 
 public class Movement : MonoBehaviour {
     public Rigidbody2D rocket;
-    public float rspeed = 100f;
+    public float rspeed = 10000f;
 
     //Speed to move at
     public float Speed = 10;
@@ -33,9 +33,13 @@ public class Movement : MonoBehaviour {
         //Add velocity to the object based on this velocity.
         GetComponent<Rigidbody2D>().velocity = new Vector2(movex * Speed, movey * Speed);
 
+        // Hank: temp shooting code
         if (Input.GetKey(KeyCode.Mouse0)) {
             Rigidbody2D rocketClone = (Rigidbody2D) Instantiate(rocket, transform.position, transform.rotation);
-            rocketClone.velocity = new Vector2(rspeed, rspeed);
+            // Note: 10000  works well with a 2.0 linear drag on the Rocket's Rigidbody - fast shot speed, and
+            // it stops not too far away from the initial position
+            rocketClone.AddForce(transform.up * 10000);
+            Destroy(rocketClone, 5);
         }
     }
 
