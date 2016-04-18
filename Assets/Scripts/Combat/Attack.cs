@@ -13,9 +13,9 @@
 --
 --  REVISIONS:      (Date and Description)
 --
---  DESIGNERS:      Hank Lo, Allen Tsang
+--  DESIGNERS:      Allen Tsang
 --
---  PROGRAMMER:     Hank Lo, Allen Tsang
+--  PROGRAMMER:     Hank Lo, Allen Tsang, Carson Roscoe
 --
 --  NOTES:
 --  This class is the attack script that we attach to players.
@@ -64,9 +64,9 @@ public class Attack : MonoBehaviour {
     --
     -- REVISIONS: None
     --
-    -- DESIGNER: Hank Lo, Allen Tsang
+    -- DESIGNER: Hank Lo, Allen Tsang, Carson Roscoe
     --
-    -- PROGRAMMER: Hank Lo, Allen Tsang
+    -- PROGRAMMER: Hank Lo, Allen Tsang, Carson Roscoe
     --
     -- INTERFACE: void Update(void)
     --

@@ -11,9 +11,9 @@
 --
 --  REVISIONS:
 --
---  DESIGNERS:      Hank Lo, Allen Tsang
+--  DESIGNERS:      Hank Lo, Allen Tsang, Carson Roscoe
 --
---  PROGRAMMER:     Hank Lo, Allen Tsang
+--  PROGRAMMER:     Hank Lo, Allen Tsang, Carson Roscoe
 --
 --  NOTES:
 --  This class is the parent class for the gunner and mage classes.

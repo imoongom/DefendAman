@@ -10,9 +10,9 @@
 --
 --  REVISIONS:
 --
---  DESIGNERS:      Hank Lo, Allen Tsang
+--  DESIGNERS:      Allen Tsang, Carson Roscoe
 --
---  PROGRAMMER:     Hank Lo, Allen Tsang
+--  PROGRAMMER:     Allen Tsang, Carson Roscoe
 --
 --  NOTES:
 --  This class is the parent class for the ninja class.

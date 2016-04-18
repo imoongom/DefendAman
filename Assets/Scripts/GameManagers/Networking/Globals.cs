@@ -39,8 +39,7 @@ e.g. Player is valued at 1. If we receive a JSON object for type Player ID 1, th
 Enviroment does not have an ID associated with it, since it is one entity. The ID we use for it will always default to 0
 
 Note: Does not start at value 0. Reason being, if JSON parser fails, it returns 0 for fail, so checking
-for fail does not work 
-*/
+for fail does not work */
 public enum DataType        { Player = 1, Trigger = 2, Environment = 3, StartGame = 4, ControlInformation = 5, Lobby = 6,
                               Item = 7, UI = 8, Hit = 9, Killed = 10, TriggerKilled = 11, AI = 12, AIProjectile = 13,
                               SpecialCase = 14, Potion = 15, StatUpdate = 16, GameOver = 17 }
@@ -74,6 +73,7 @@ public class NetworkKeyString
     public static string MapResources   = "mapResources";
 }
 
+//PlayerData filled in from lobby, with current resources and weapon stats
 public class PlayerData 
 {
     public int PlayerID = -1;
@@ -93,6 +93,7 @@ public class PlayerData
     };
 }
 
+//GameData being updated constantly updated as the game progresses
 public class GameData
 {
 	// Blocks all in game keyboard inputs
