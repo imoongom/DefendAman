@@ -9,6 +9,7 @@ DefendAman is a multiplayer, top-down, 2D, team-based MOBA action game developed
 * **Dylan Blake** - [dmblake](https://github.com/dmblake)
 * **Carson Roscoe** - [CarsonRoscoe](https://github.com/CarsonRoscoe)
 * **Alvin Man** - [AlvinMan](https://github.com/alvinman)
+* **Martin Minkov the best** - [Martin Minkov](https://github.com/MartinMinkov)
 * **Jaegar Sarauer** - [JaegarSarauer](https://github.com/JaegarSarauer)
 * **Allen Tsang** - [AllenTsang](https://github.com/AllenTsang)
 * **Joseph Tam** - [JosephTam](https://github.com/josephtam)
@@ -23,7 +24,7 @@ DefendAman is a multiplayer, top-down, 2D, team-based MOBA action game developed
 * **Oscar Kwan** - [Okwan](https://github.com/okwan)
 * **Gabriella Chueng** - [Gabriellabcit](https://github.com/gabriellabcit)
 * **Thomas Yu** - [Thomasyu93](https://github.com/thomasyu93)
-* **Gabriel Lee** - [ScrawmySquirrle](https://github.com/ScrawnySquirrel)
+* **Gabriel Lee** - [ScrawnySquirrel](https://github.com/ScrawnySquirrel)
 * **Tom Tang** - [Eigenket1](https://github.com/eigenket1)
 * **Vivek Kalia** - [Vivekkalia](https://github.com/vivekkalia)
 * **Scott Plummer** - [Frozenhawk](https://github.com/Frozenhawk)
@@ -32,8 +33,15 @@ DefendAman is a multiplayer, top-down, 2D, team-based MOBA action game developed
 
 ###Matchmaking:
 A match of DefendAman is played with two teams. When a player connects to a server hosting a DefendAman game, they can choose which side they want to play on. Teams are made up of at least two players and a game must have minimum of four players before it will begin. At the start of the match, each team can have one only one player to be the Aman. Gameplay revolves around managing both defense and offense; players have to ensure their Aman is safe before striking at the opposing team.
-	
-	`[TODO:: Insert lobby system screenshot here]`
+
+![Grassland](/images/matchmaking.PNG)	
+
+###Themes:
+There are two unique themes players can choose to play in, **Grassland** and **Tron**. They are asset packages loaded locally on the client's workstation, meaning that all the players are able to share the same map elements while playing under different themes.
+
+![Grassland](/images/theme_selection.PNG)
+
+![Grassland](/images/combined.PNG) 
 
 ###Classes:
 Each player can take on one of three roles: **Ninja**, **Gunner** or **Wizard**. Each class has a distinct play style that provides a unique benefit to a team. 
@@ -42,7 +50,7 @@ Each player can take on one of three roles: **Ninja**, **Gunner** or **Wizard**.
 		- Normal attack: Swing katana 
 		- Special ability-**shukuchi**: Teleport to the designated area, granting increased maneuverability in and out of combat.
 	
-			![ninja special](/images/ninja_special.gif)
+		![ninja special](/images/ninja_special.gif)
 
 
 - **Gunner**
@@ -151,7 +159,7 @@ Currently, there are five different types of buildings player can purchase using
 	  window for configuring resolution and game quality.
 	- **IMPORTANT: Resolution setting needs to match the monitor, which is 16x9 for lab computers, 
 	   and quality has to be simplest.** 
-		- If an incorrect resolution and quality is selected, various issues will arise due 
+		- If an incorrect resolution and quality is selected, various issues may arise due 
 		  to the compatability of Unity and Linux
 	 
 
