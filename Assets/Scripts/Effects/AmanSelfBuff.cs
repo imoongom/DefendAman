@@ -14,8 +14,6 @@
 --                      - Numbers balancing; removed majority of self stat buffs, increased hp buff
 --                  April 5th: Allen Tsang
 --                      - Attached indicator
---                  April 6th: Hank Lo
---                      - More numbers balancing - lowered health buff.
 --
 --  DESIGNERS:      Allen Tsang, Hank Lo
 --
@@ -31,30 +29,12 @@ using UnityEngine.EventSystems;
 
 public class AmanSelfBuff : Buff {
     
-    int hpBuff = 750;
+    int hpBuff = 2000;
     BaseClass target;
     Rigidbody2D area;
     GameObject indicator;
     GameObject instance;
 
-    /*---------------------------------------------------------------------------------------------------------------------
-    -- FUNCTION: Start
-    --
-    -- DATE: March 9, 2016
-    --
-    -- REVISIONS: None
-    --
-    -- DESIGNER: Hank Lo, Allen Tsang
-    --
-    -- PROGRAMMER: Hank Lo, Allen Tsang
-    --
-    -- INTERFACE: void Start(void)
-    --
-    -- RETURNS: void
-    --
-    -- NOTES:
-    -- Start of scripts creation. Used to instantiate variables in our case.
-    ---------------------------------------------------------------------------------------------------------------------*/
     new void Start()
     {
         base.Start();
@@ -72,24 +52,7 @@ public class AmanSelfBuff : Buff {
         instance.transform.parent = target.transform;
     }
     
-    /*---------------------------------------------------------------------------------------------------------------------
-    -- FUNCTION: FixedUpdate
-    --
-    -- DATE: March 9, 2016
-    --
-    -- REVISIONS: None
-    --
-    -- DESIGNER: Hank Lo, Allen Tsang
-    --
-    -- PROGRAMMER: Hank Lo, Allen Tsang
-    --
-    -- INTERFACE: void FixedUpdate(void)
-    --
-    -- RETURNS: void
-    --
-    -- NOTES:
-    -- Called every physics update.
-    ---------------------------------------------------------------------------------------------------------------------*/
+    // Called every physics update
     protected override void FixedUpdate() {
         //Non-standard duration, counts up
         duration++;

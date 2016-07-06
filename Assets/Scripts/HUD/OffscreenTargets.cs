@@ -1,23 +1,18 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
-public class OffscreenTargets : MonoBehaviour
-{
+public class OffscreenTargets : MonoBehaviour {
 
     public Canvas canvas;
     public Image OffScreenSprite;
     [Range(0.1f, 1.0f)]
     public float offset = 0.7f;
-    [Range(0.1f, 1.0f)]
-    public float indicator_scale = 1.0f;
-
-    private Vector3 screenCenter = new Vector3(Screen.width, Screen.height, 0) * .5f;
-    private Vector3 offScreen = new Vector3(-100, -100, 0);
 
     private Image offSprite;
+    private Vector3 screenCenter = new Vector3(Screen.width, Screen.height, 0) * .5f;
+    private Vector3 offScreen = new Vector3(-100, -100, 0);
 
     private Rect centerRect;
     // Use this for initialization
@@ -25,40 +20,49 @@ public class OffscreenTargets : MonoBehaviour
     {
         offSprite = Instantiate(OffScreenSprite, offScreen, Quaternion.Euler(new Vector3(0, 0, 0))) as Image;
         offSprite.rectTransform.parent = canvas.transform;
-        offSprite.transform.localScale *= indicator_scale;
-
         centerRect.width = Screen.width / 2;
         centerRect.height = Screen.height / 2;
         centerRect.position = new Vector2(screenCenter.x - centerRect.width / 2, screenCenter.y - centerRect.height / 2);
     }
 
-    // late update is called every frame after Update() finishes
-    void LateUpdate()
+    void Update()
     {
         PlaceIndicators();
     }
 
     void PlaceIndicators()
     {
-        Vector3 targetPos;
 
-        if (GameData.AllyKingID != -1)
+        GameObject[] objects = GameObject.FindGameObjectsWithTag("Player");
+
+        if (objects.Length == 0)
         {
-            targetPos = GameData.PlayerPosition[GameData.AllyKingID];
-            targetPos = Camera.main.WorldToScreenPoint(targetPos);
-
-            if (targetPos.z > 0 && targetPos.x < Screen.width &&
-                targetPos.x > 0 && targetPos.y < Screen.height && targetPos.y > 0)
+            return;
+        }
+        List<GameObject> players = new List<GameObject>();
+        
+        foreach(GameObject g in objects)
+        {
+            // forced to do this check due to bad tag naming...
+            if (!g.ToString().Contains("Holder"))
             {
-                offSprite.rectTransform.position = offScreen;   //get rid of the arrow indicator
+                players.Add(g);
             }
-            else {
-                PlaceOffscreen(targetPos, offSprite);
-            }
+        }
+
+        Vector3 screenpos = Camera.main.WorldToScreenPoint(players[1].transform.position);
+
+        //if onscreen
+        if (screenpos.z > 0 && screenpos.x < Screen.width && screenpos.x > 0 && screenpos.y < Screen.height && screenpos.y > 0)
+        {
+            offSprite.rectTransform.position = offScreen;//get rid of the arrow indicator
+        }
+        else {
+            PlaceOffscreen(screenpos);
         }
     }
 
-    void PlaceOffscreen(Vector3 screenpos, Image indicator)
+    void PlaceOffscreen(Vector3 screenpos)
     {
         Vector3 indicationPos = screenpos;
         screenpos -= screenCenter;
@@ -74,8 +78,7 @@ public class OffscreenTargets : MonoBehaviour
         {
             indicationPos.x = -screenBounds.y / slope;
             indicationPos.y = -screenBounds.y;
-        }
-        else
+        } else
         {
             indicationPos.x = screenBounds.y / slope;
             indicationPos.y = screenBounds.y;
@@ -85,8 +88,7 @@ public class OffscreenTargets : MonoBehaviour
         {
             indicationPos.x = -screenBounds.x;
             indicationPos.y = slope * -screenBounds.x;
-        }
-        else if (indicationPos.x > screenBounds.x)
+        } else if (indicationPos.x > screenBounds.x)
         {
             indicationPos.x = screenBounds.x;
             indicationPos.y = slope * screenBounds.x;
@@ -95,8 +97,8 @@ public class OffscreenTargets : MonoBehaviour
         indicationPos += screenCenter;
         screenpos += screenCenter;
 
-        indicator.rectTransform.position = indicationPos;
-        indicator.rectTransform.rotation = Quaternion.Euler(0, 0, angle - 90);
+        offSprite.rectTransform.position = indicationPos;
+        offSprite.rectTransform.rotation = Quaternion.Euler(0, 0, angle - 90);
     }
 
 }

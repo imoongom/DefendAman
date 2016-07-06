@@ -13,9 +13,9 @@
 --                   April 4th: Hank Lo
 --                      - Numbers balancing
 --
---  DESIGNERS:      Hank Lo, Allen Tsang
+--  DESIGNERS:      Hank Lo
 --
---  PROGRAMMER:     Hank Lo, Allen Tsang
+--  PROGRAMMER:     Hank Lo
 --
 --  NOTES:
 --  This class contains the logic that relates to the Magic Buff Class.
@@ -28,31 +28,13 @@ using UnityEngine.EventSystems;
 
 public class MagicBuff : Buff {
 
-    int speedbuff = 1;
-    int atkbuff = 3;
-    int defbuf = 3;
+    int speedbuff = 3;
+    int atkbuff = 5;
+    int defbuf = 5;
     int applyrate;
 
     bool appliedspeedbuff = false;
 
-    /*---------------------------------------------------------------------------------------------------------------------
-    -- FUNCTION: Start
-    --
-    -- DATE: March 9, 2016
-    --
-    -- REVISIONS: None
-    --
-    -- DESIGNER: Hank Lo, Allen Tsang
-    --
-    -- PROGRAMMER: Hank Lo, Allen Tsang
-    --
-    -- INTERFACE: void Start(void)
-    --
-    -- RETURNS: void
-    --
-    -- NOTES:
-    -- Start of scripts creation. Used to instantiate variables in our case.
-    ---------------------------------------------------------------------------------------------------------------------*/
     new void Start()
     {
         base.Start();
@@ -61,24 +43,7 @@ public class MagicBuff : Buff {
         applyrate = 0;
     }
     
-    /*---------------------------------------------------------------------------------------------------------------------
-    -- FUNCTION: FixedUpdate
-    --
-    -- DATE: March 9, 2016
-    --
-    -- REVISIONS: None
-    --
-    -- DESIGNER: Hank Lo, Allen Tsang
-    --
-    -- PROGRAMMER: Hank Lo, Allen Tsang
-    --
-    -- INTERFACE: void FixedUpdate(void)
-    --
-    -- RETURNS: void
-    --
-    -- NOTES:
-    -- Called every physics update.
-    ---------------------------------------------------------------------------------------------------------------------*/
+    //Called every frame
     protected override void FixedUpdate() {
         applyrate++;
         if (!appliedspeedbuff) 
@@ -96,7 +61,6 @@ public class MagicBuff : Buff {
         }
         if(--duration < 0)
         {
-			print ("[DEBUG] MAGIC BUFF: " + player.ClassStat.MoveSpeed);
             player.ClassStat.AtkPower -= (magnitude*atkbuff);
             player.ClassStat.Defense -= (magnitude*defbuf);
             player.ClassStat.MoveSpeed -= speedbuff;

@@ -1,15 +1,3 @@
-/*------------------------------------------------------------------------------
-
-  SOURCE FILE:                main.cpp
-
-  PROGRAM:                    Server
-
-  DESIGNER/PROGRAMMER:        Martin Minkov, Jerry Jia, Scott Plummer
-
-  NOTES:                      Handles initializing the UDP and TCP sockets
-                              and creating client and game threads.
-
--------------------------------------------------------------------------------*/
 #include "Server.h"
 #include "ServerTCP.h"
 #include "ServerUDP.h"
@@ -23,6 +11,11 @@ int main()
   ServerTCP serverTCP;
   ServerUDP serverUDP;
 
+  if((rc = serverUDP.InitializeSocket(8000)) != 0)
+  {
+      std::cerr << "UDP Server initialization failed." << std::endl;
+      return 1;
+  }
   std::cerr << "UDP Server initialized." << std::endl;
 
   if((rc = serverTCP.InitializeSocket(7000)) != 0)
@@ -52,11 +45,6 @@ int main()
       }
       if (gameRunning == false)
       {
-        if((rc = serverUDP.InitializeSocket(8000)) != 0)
-        {
-            std::cerr << "UDP Server initialization failed." << std::endl;
-            return 1;
-        }
         std::cout << "UDP thread creation" << std::endl;
         if(pthread_create(&udpThread, NULL, &ServerUDP::CreateClientManager, (void *) &serverUDP) < 0)
         {

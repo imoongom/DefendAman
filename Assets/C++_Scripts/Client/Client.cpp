@@ -1,34 +1,29 @@
-/*------------------------------------------------------------------------------
+/**********************************************************
+Project: Defendaman
 
-  SOURCE FILE:              Client.cpp
+Progarmmer: Jerry Jia
 
-  PROGRAM:                  Defendaman
+Source File: Client.cpp
 
-  FUNCTIONS:                void CBInitialize(CircularBuffer * CBuff, int MaxSize, int ElementSize)
-                            void CBFree(CircularBuffer * CBuff)
-                            void CBPushBack(CircularBuffer * CBuff, const void *item)
-                            void CBPop(CircularBuffer * CBuff, void * item)
-
-  DESIGNER/PROGRAMMER:      Jerry Jia, Martin Minkov
-
-  NOTES:                    The UDP client class for the in-game data transfers.
--------------------------------------------------------------------------------*/
+Revision History:
+    Date        Author      Description
+    2016-03-09  Gabriel Lee Added function headers and comments.
+    Description: The UDP client class for the in-game data transfers.
+**********************************************************/
 #include "Client.h"
 using namespace Networking;
-/*------------------------------------------------------------------------------
 
-  FUNCTION:                   Client
+/**********************************************************
+Description: Class constructor
 
-  DESIGNER/PROGRAMMER:        Jerry Jia
+Progarmmer: Jerry Jia
 
-  Revision History:            2016-03-09  Gabriel Lee
-                              Added function headers and comments.
+Parameters: none
 
-  INTERFACE:                  Client::Client
-
-  NOTES:                      Constructor for the Client object
-
--------------------------------------------------------------------------------*/
+Revision History:
+    Date        Author      Description
+    2016-03-09  Gabriel Lee Added function headers and comments.
+**********************************************************/
 Client::Client()
 {
     // Initialize the circular buffer
@@ -38,26 +33,22 @@ Client::Client()
     // that is being exposed to unity
     currentData = (char *)malloc(PACKETLEN);
 }
-/*------------------------------------------------------------------------------
 
-  FUNCTION:                   Init_SockAddr
+/**********************************************************
+Description: Initialize the socket address structure by recieving the port number and
+either the hostname or an IPV4 address.
 
-  DESIGNER/PROGRAMMER:        Jerry Jia, Martin Minkov
+Progarmmer: Jerry Jia
 
-  Revision History:            2016-03-09  Gabriel Lee
-                              Added function headers and comments.
+Parameters:
+    hostname - The host name of the server.
+    hostport - The port number of the server.
 
-  INTERFACE:                  int Client::Init_SockAddr(const char* hostname, short hostport)
-                                hostname - The host name of the server.
-                                hostport - The port number of the server.
-
-  RETURNS:                    int : Socket file descriptor and the server address for future use.
-
-  NOTES:                      Initialize the socket address structure by
-                              recieving the port number either the hostname or
-                              an IPV4 address.
-
--------------------------------------------------------------------------------*/
+Returns: Socket file descriptor and the server address for future use.
+Revision History:
+    Date        Author      Description
+    2016-03-09  Gabriel Lee Added function headers and comments.
+**********************************************************/
 int Client::Init_SockAddr(const char* hostname, short hostport)
 {
     //address that client socket should connect to
@@ -80,41 +71,39 @@ int Client::Init_SockAddr(const char* hostname, short hostport)
     serverAddr = addr;
     return 0;
 }
-/*------------------------------------------------------------------------------
 
-  FUNCTION:                   fatal
+/**********************************************************
+Description: Wrapper function to report errors.
 
-  DESIGNER/PROGRAMMER:        Jerry Jia
+Programmer: Jerry jia
 
-  INTERFACE:                  void Client::fatal(const char* error)
-                                error - The error information to report.
+Parameters:
+    error - The error information to report.
 
-  RETURNS:                    void
+Returns: void
 
-  NOTES:                      Wrapper function to report errors.
-
--------------------------------------------------------------------------------*/
+Revision History:
+    Date        Author      Description
+    2016-03-09  Gabriel Lee Added function headers and comments.
+**********************************************************/
 void Client::fatal(const char* error)
 {
     perror(error);
 }
-/*------------------------------------------------------------------------------
 
-  FUNCTION:                    GetData
+/**********************************************************
+Description: Get data from the client's circular buffer.
 
-  DESIGNER/PROGRAMMER:        Jerry Jia
+Programmer: Jerry jia, Dylan Blake
 
-  Revision History:           2016-03-09  Gabriel Lee
-                              Added function headers and comments.
+Parameters: none
 
-  INTERFACE:                  char* Client::GetData()
+Returns: Character pointer of the data removed from the circular buffer.
 
-  RETURNS:                    char*: Character pointer of the data removed
-                                      from the circular buffer.
-
-  NOTES:                       Get data from the client's circular buffer.
-
--------------------------------------------------------------------------------*/
+Revision History:
+    Date        Author      Description
+    2016-03-09  Gabriel Lee Added function headers and comments.
+**********************************************************/
 char* Client::GetData()
 {
     if (CBPackets.Count != 0)

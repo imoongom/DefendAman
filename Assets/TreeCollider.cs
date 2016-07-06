@@ -7,7 +7,7 @@ public class TreeCollider : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		tree = gameObject.GetComponent<Resource>();
+		tree = gameObject.GetComponentInParent<Resource>();
 	}
 
 	/*------------------------------------------------------------------------------------------------------------------

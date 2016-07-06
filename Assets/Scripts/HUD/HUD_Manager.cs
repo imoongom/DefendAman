@@ -29,17 +29,14 @@ public class HUD_Manager : MonoBehaviour
 	public PassiveSkill			passiveSkill;
 	public Chat					chat;
 	public Shop					shop;	
-	public PlayerDP				playerDp;
-	public ChargeBar			chargeBar;
-	public Stamina				stamina;
-	public WinScreen			winScreen;
-    public LoseScreen           loseScreen;
-	public Text					upgradeAmount;
 	public Text					timer;
 	public GameObject			placementRange;
 	public GameObject			statsPanel;
+	public PlayerDP				playerDp;
+	public ChargeBar			chargeBar;
+	public Stamina				stamina;
 	public ColourizeScreen		colourizeScreen;
-	
+
 	// Need to reference MapManager to manipulate its building lists
 	public MapManager			mapManager;
 
@@ -363,12 +360,12 @@ public class HUD_Manager : MonoBehaviour
 
 		if(Input.GetAxis("Mouse ScrollWheel") > 0)
 		{
-			object[] parms = new object[3]{90, shop.Selected.Building, 0.2f};
+			object[] parms = new object[3]{90, shop.Selected.Building, 1f};
 			StartCoroutine(Rotate(parms));
 		}else
 		if(Input.GetAxis("Mouse ScrollWheel") < 0)
 		{
-			object[] parms = new object[3]{-90, shop.Selected.Building, 0.2f};
+			object[] parms = new object[3]{-90, shop.Selected.Building, 1f};
 			StartCoroutine(Rotate(parms));
 		}
 	}
@@ -430,7 +427,7 @@ public class HUD_Manager : MonoBehaviour
         if (b1.GetComponent<Building>().type == Building.BuildingType.Turret) 
 		{
            // building.GetComponent<AI>()
-           b1.GetComponent<AI>().instantTurret(1, 40, data[NetworkKeyString.TeamID].AsInt, 18, 100);
+           b1.GetComponent<AI>().instantTurret(2, 40, data[NetworkKeyString.TeamID].AsInt, 15, 15);
             Debug.Log("Instant turret 1");
         }
 		b1.GetComponent<Building>().notifycreation();
@@ -919,17 +916,5 @@ public class HUD_Manager : MonoBehaviour
 		public Image			ProgressBar;
 		public float			FillTimer;
 	}
-	[System.Serializable]
-	public class WinScreen
-	{
-		public Animator			Parent;
-		public Animator			Child;
-	}
-    [System.Serializable]
-    public class LoseScreen
-    {
-        public Animator         Parent;
-        public Animator         Child;
-    }
-    #endregion
+	#endregion
 }

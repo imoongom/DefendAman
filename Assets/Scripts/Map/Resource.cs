@@ -24,7 +24,7 @@ using System.Collections.Generic;
 class Resource : MonoBehaviour {
 	public int x {get; set;}
 	public int y {get; set;}
-	public int hp {get; set;}
+	public int amount {get; set;}
 	public int instanceId {get; set;}
 	public bool trigger_entered {get; set;}
 	public Animator animator {get; set;}
@@ -53,37 +53,36 @@ class Resource : MonoBehaviour {
     -- INTERFACE: 	Update(void)
     -- RETURNS: 	void.
     -- NOTES:
-    -- Called once per frame. If resource hp is 0, triggers the resource depletion animation and disables collision
+    -- Called once per frame. If resource amount is 0, triggers the resource depletion animation and disables collision
     -- on the game object.
     ----------------------------------------------------------------------------------------------------------------------*/
 	void Update () {
 	}
 	
     /*------------------------------------------------------------------------------------------------------------------
-    -- FUNCTION: 	DecreaseHp
+    -- FUNCTION: 	DecreaseAmount
     -- DATE: 		March 24, 2016
-    -- REVISIONS: 	April 6 - Decrease logic based on hits, not damage
+    -- REVISIONS: 	N/A
     -- DESIGNER:  	Krystle Bulalakaw
     -- PROGRAMMER: 	Krystle Bulalakaw
-    -- INTERFACE: 	DecreaseHp(int num)
-    --					int num: number of hits done to resource
+    -- INTERFACE: 	DecreaseAmount(int damage)
+    --					int damage: the amount of damage dealt by the player
     -- RETURNS: 	void.
     -- NOTES:
-    -- Decreases the amount of a resource object by some number.
+    -- Decreases the amount of a resource object by the amount of damage done to it.
     -- On resource depletion, send a message to the server to deplete and respawn the resource.
     ----------------------------------------------------------------------------------------------------------------------*/
-	public void DecreaseHp(int num, int playerId) {
-        /*
+	public void DecreaseAmount(int damage) {
 		int decreaseAmount = damage;
 		if ((this.amount - damage) < 0) { // 0 amount left
 			decreaseAmount = this.amount;
 		}
-        */
 
-		this.hp -= num;
+		this.amount -= decreaseAmount;
+		//DropGold(decreaseAmount);
 
-		if (this.hp == 0) {
-			SendResourceDepletedMessage(playerId);
+		if (this.amount == 0) {
+			SendResourceDepletedMessage();
 			SendResourceRespawnMessage();
 		} 
 	}
@@ -93,7 +92,8 @@ class Resource : MonoBehaviour {
     -- DATE: 		March 30, 2016
     -- REVISIONS: 	April 5 - Move addition of magnetize component to CreateWorldItem() 
     -- DESIGNER:  	Krystle Bulalakaw
-    -- PROGRAMMER: 	Krystle Bulalakaw
+    -- P
+    ROGRAMMER: 	Krystle Bulalakaw
     -- INTERFACE: 	DropGold(int amount)
     --					int amount - amount of gold to drop
     -- RETURNS: 	void.
@@ -112,7 +112,7 @@ class Resource : MonoBehaviour {
         List<Pair<string, string>> msg =
                 WorldItemManager.Instance.CreateWorldItemNetworkMessage(instance_id, gold_id, 
                 amount, x + offsetX, y + offsetY);
-        NetworkingManager.send_next_packet(DataType.Item, (int)ItemUpdate.Create, msg, Protocol.TCP);
+        NetworkingManager.send_next_packet(DataType.Item, (int)ItemUpdate.Create, msg, Protocol.UDP);
 
         // Pretend that a drop message was received
         if (Application.platform != RuntimePlatform.LinuxPlayer)
@@ -159,9 +159,8 @@ class Resource : MonoBehaviour {
 		
 		_message.Add(new Pair<string, string>(NetworkKeyString.XPos, x.ToString()));
 		_message.Add(new Pair<string, string>(NetworkKeyString.YPos, y.ToString()));
-        //_message.Add(new Pair<string, string>(NetworkKeyString.PlayerID, GameData.MyPlayer.PlayerID.ToString()));
 
-        return _message;
+		return _message;
 	}
 
     /*------------------------------------------------------------------------------------------------------------------
@@ -192,14 +191,14 @@ class Resource : MonoBehaviour {
     -- REVISIONS: 	N/A
     -- DESIGNER:    Krystle Bulalakaw
     -- PROGRAMMER:  Krystle Bulalakaw
-    -- INTERFACE: 	void SendResourceTakenMessage(int hp) 
-    --					int hp - the amount of resource HP that was lost
+    -- INTERFACE: 	void SendResourceTakenMessage(int amount) 
+    --					int amount - the amount of resource that was taken
     -- RETURNS: 	void.
     -- NOTES:
-    -- Creates a message to send to the server to indicate that a resource dropped HP.
+    -- Creates a message to send to the server to indicate that a resource was taken.
     ----------------------------------------------------------------------------------------------------------------------*/
-    public void SendResourceTakenMessage(int hp) {
-		List<Pair<string, string>> msg = CreateResourceTakenMessage(hp);
+    public void SendResourceTakenMessage(int amount) {
+		List<Pair<string, string>> msg = CreateResourceTakenMessage(amount);
 		SendMessageToServer(msg, (int)MapManager.EventType.RESOURCE_TAKEN);
 	}
 
@@ -214,13 +213,9 @@ class Resource : MonoBehaviour {
     -- NOTES:
     -- Creates a message to send to the server to indicate that a resource was depleted.
     ----------------------------------------------------------------------------------------------------------------------*/
-    void SendResourceDepletedMessage(int playerId) {
+    void SendResourceDepletedMessage() {
 		List<Pair<string, string>> msg = CreateResourcePositionMessage();
-        msg.Add(new Pair<string, string>(NetworkKeyString.PlayerID, playerId.ToString()));
-        if (GameData.MyPlayer.PlayerID == playerId)
-        {
-            SendMessageToServer(msg, (int)MapManager.EventType.RESOURCE_DEPLETED);
-        }
+		SendMessageToServer(msg, (int)MapManager.EventType.RESOURCE_DEPLETED);
 	}
 
     /*------------------------------------------------------------------------------------------------------------------

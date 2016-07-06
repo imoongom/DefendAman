@@ -12,15 +12,7 @@ public class Toggle_Button : MonoBehaviour {
 	{
 		mybutton = gameObject.GetComponent<Button>();
 	}
-
-	/*----------------------------------------------------------------------------
-    --	Change button color when pressed
-    --
-    --	Interface:  void CheckChatAction()
-    --
-    --	programmer: Jerry Jia
-    --	@return: void
-	------------------------------------------------------------------------------*/
+	
 	public void BeenClicked()
 	{
 		ButtonOn = !ButtonOn;
