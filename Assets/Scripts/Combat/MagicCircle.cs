@@ -5,7 +5,7 @@
 --
 --  FUNCTIONS:
 --      void Start()
---      void FixedUpdate()
+--      protected override void OnTriggerEnter2D(Collider2D other)
 --      protected override void OnTriggerStay2D(Collider2D other)
 --      protected override void OnTriggerExit2D(Collider2D other)
 --
@@ -49,10 +49,11 @@ public class MagicCircle : Area
     --
     -- NOTES:
     -- Function that's called when the circle is created - this function initializes the start position of the circle, and 
-    -- removes the circle after 3 seconds
+    -- removes the circle after 6 seconds
     ---------------------------------------------------------------------------------------------------------------------*/
     new void Start()
     {
+        duration = 6;
 		transform.position = new Vector3(transform.position.x, transform.position.y, -2);
         startPos = transform.position;
         Destroy(gameObject, duration);

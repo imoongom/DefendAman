@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 using System.Collections.Generic;
@@ -42,7 +42,6 @@ public class Building:MonoBehaviour {
 	public int collidercounter = 0;
 	[HideInInspector]
 	public bool playerlocker = false;
-	[HideInInspector]
 	public HealthBar healthBar;
 
 	// Use this for initialization
@@ -52,7 +51,6 @@ public class Building:MonoBehaviour {
 		playerlocker = false;
 		collidercounter=0;
 		if(!placing)
-			//gameObject.GetComponent<Animator>().SetTrigger("Create");
 			StartCoroutine(Construct());
 
 		placeble = true;
@@ -68,6 +66,15 @@ public class Building:MonoBehaviour {
 
     }
 
+
+    /*----------------------------------------------------------------------------
+    --	Animate a construction effect when buildings are placed
+    --
+    --	Interface: IEnumerator Construct()
+    --
+    --	programmer: Jerry Jia
+    --	@return: void
+	------------------------------------------------------------------------------*/
 	IEnumerator Construct()
 	{
 		float elapsedTime = 0.0f;
@@ -149,11 +156,28 @@ public class Building:MonoBehaviour {
 		}
 	}
 
+	/*----------------------------------------------------------------------------
+    --	Called when buildings are created over network. adds vector transform 
+    --	position into dictionary
+    --
+    --	Interface: public void notifycreation()
+    --
+    --	programmer: Jerry Jia
+    --	@return: void
+	------------------------------------------------------------------------------*/
 	public void notifycreation()
 	{
 		GameData.Buildings.Add(transform.position, this);
 	}
 
+	/*----------------------------------------------------------------------------
+    --	Called when a building is destroyed, sends packet to the network
+    --
+    --	Interface: public void	notifydeath()
+    --
+    --	programmer: Jerry Jia
+    --	@return: void
+	------------------------------------------------------------------------------*/
 	public void	notifydeath()
 	{
 		// Send the packet, with Team ID, user name, and the message input

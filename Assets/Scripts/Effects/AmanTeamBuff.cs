@@ -27,11 +27,29 @@ using UnityEngine.EventSystems;
 
 public class AmanTeamBuff : Buff
 {
-    int attackBuff = 10;
-    int defenseBuff = 10;
-    int speedBuff = 2;
+    int attackBuff = 7;
+    int defenseBuff = 7;
+    int speedBuff = 1;
     BaseClass target;
 
+    /*---------------------------------------------------------------------------------------------------------------------
+    -- FUNCTION: Start
+    --
+    -- DATE: March 9, 2016
+    --
+    -- REVISIONS: None
+    --
+    -- DESIGNER: Hank Lo, Allen Tsang
+    --
+    -- PROGRAMMER: Hank Lo, Allen Tsang
+    --
+    -- INTERFACE: void Start(void)
+    --
+    -- RETURNS: void
+    --
+    -- NOTES:
+    -- Start of scripts creation. Used to instantiate variables in our case.
+    ---------------------------------------------------------------------------------------------------------------------*/
     new void Start()
     {
         base.Start();
@@ -42,7 +60,24 @@ public class AmanTeamBuff : Buff
         duration = 75;
     }
 
-    // Called every physics update
+    /*---------------------------------------------------------------------------------------------------------------------
+    -- FUNCTION: FixedUpdate
+    --
+    -- DATE: March 9, 2016
+    --
+    -- REVISIONS: None
+    --
+    -- DESIGNER: Hank Lo, Allen Tsang
+    --
+    -- PROGRAMMER: Hank Lo, Allen Tsang
+    --
+    -- INTERFACE: void FixedUpdate(void)
+    --
+    -- RETURNS: void
+    --
+    -- NOTES:
+    -- Called every physics update.
+    ---------------------------------------------------------------------------------------------------------------------*/
     protected override void FixedUpdate()
     {
         if (--duration < 0)
